@@ -1,0 +1,17 @@
+# Keep deployment data and credentials out of source control.
+.env
+.env.*
+!.env.example
+script-properties.json
+credentials*.json
+.clasp.json
+intake-state/
+*.state.json
+cloud-status.json
+test-video-status.json
+*.mp4
+*.mov
+*.MOV
+*.mkv
+node_modules/
+.DS_Store

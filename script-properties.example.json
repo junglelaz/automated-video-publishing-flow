@@ -1,0 +1,8 @@
+{
+  "DRIVE_FOLDER_ID": "YOUR_PRIVATE_SOURCE_FOLDER_ID",
+  "NOTIFICATION_EMAIL": "owner@example.com",
+  "OPUS_ORG_ID": "YOUR_OPUS_ORGANIZATION_ID",
+  "OPUSCLIP_API_KEY": "",
+  "PUBLICATION_ENABLED": "false",
+  "DESTINATIONS_JSON": "[{\"platform\": \"YOUTUBE\", \"postAccountId\": \"YOUR_YOUTUBE_POST_ACCOUNT_ID\", \"mediaType\": \"short\"}, {\"platform\": \"INSTAGRAM_BUSINESS\", \"postAccountId\": \"YOUR_INSTAGRAM_POST_ACCOUNT_ID\", \"subAccountId\": \"YOUR_INSTAGRAM_PROFILE_ID\", \"mediaType\": \"reel\"}, {\"platform\": \"TIKTOK_BUSINESS\", \"postAccountId\": \"YOUR_TIKTOK_POST_ACCOUNT_ID\", \"mediaType\": \"short\"}, {\"platform\": \"FACEBOOK_PAGE\", \"postAccountId\": \"YOUR_FACEBOOK_POST_ACCOUNT_ID\", \"subAccountId\": \"YOUR_AUTHORIZED_FACEBOOK_PAGE_ID\", \"mediaType\": \"reel\"}]"
+}

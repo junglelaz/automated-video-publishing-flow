@@ -1,0 +1,8 @@
+/** Read deployment settings at call time: no private IDs or credentials belong in code. */
+function requiredSetting_(key){const value=String(props_().getProperty(key)||'').trim();if(!value||/^YOUR_|SET_PRIVATELY/.test(value))throw new Error('MISSING_SETTING_'+key);return value;}
+const JL=Object.freeze({
+  get folder(){const id=requiredSetting_('DRIVE_FOLDER_ID');if(!/^[A-Za-z0-9_-]+$/.test(id))throw new Error('INVALID_SOURCE_FOLDER_ID');return id;},
+  get notify(){const address=requiredSetting_('NOTIFICATION_EMAIL');if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(address))throw new Error('INVALID_NOTIFICATION_EMAIL');return address;},
+  chunk:8*1024*1024,maxBytes:30*1024*1024*1024,maxRunMs:180000,dailyMs:3600000
+});
+function destinations_(){let rows;try{rows=JSON.parse(requiredSetting_('DESTINATIONS_JSON'));}catch(_){throw new Error('DESTINATIONS_JSON_REQUIRED');}const platforms=['YOUTUBE','INSTAGRAM_BUSINESS','TIKTOK_BUSINESS','FACEBOOK_PAGE'];if(!Array.isArray(rows)||rows.length!==4||new Set(rows.map(x=>x.platform)).size!==4||rows.some(x=>!platforms.includes(x.platform)))throw new Error('EXACT_FOUR_DESTINATIONS_REQUIRED');return rows.map(x=>{const valid=v=>typeof v==='string'&&/^[A-Za-z0-9_-]{3,128}$/.test(v)&&!v.startsWith('YOUR_');if(!valid(x.postAccountId))throw new Error('DESTINATION_ACCOUNT_ID_REQUIRED');const child=['INSTAGRAM_BUSINESS','FACEBOOK_PAGE'].includes(x.platform);if(child&&!valid(x.subAccountId))throw new Error('EXACT_DESTINATION_SUBACCOUNT_REQUIRED');if(!child&&x.subAccountId)throw new Error('UNEXPECTED_SUBACCOUNT');return Object.freeze({platform:x.platform,postAccountId:x.postAccountId,...child?{subAccountId:x.subAccountId}:{},mediaType:['INSTAGRAM_BUSINESS','FACEBOOK_PAGE'].includes(x.platform)?'reel':'short'});});}
